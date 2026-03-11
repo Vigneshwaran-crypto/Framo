@@ -25,6 +25,8 @@
       {
         "type": "TextInput",
         "field": "email",
+        "required": true,
+        "errorMsg": "Please enter valid email",
         "props": {
           "placeholder": "Email"
         },
@@ -39,7 +41,9 @@
       },
       {
         "type": "TextInput",
-        "field": "Password",
+        "field": "password",
+        "required": true,
+        "errorMsg": "Please enter password",
         "props": {
           "placeholder": "Password",
           "secureTextEntry": true
@@ -55,7 +59,7 @@
       },
       {
         "type": "TouchableOpacity",
-        "action": "nav",
+        "action": "logIn",
         "toScreen": "Settings",
         "props": {
           "title": "Sign In"

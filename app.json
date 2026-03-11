@@ -1,4 +1,18 @@
 {
   "name": "fremo",
-  "displayName": "fremo"
+  "displayName": "fremo",
+  "productionConfig": {
+    "serverUrl": "https://aarthiscan.com/FieldPlus/hcApp/",
+    "authUrl": "https://aarthiscan.com/FieldPlus/auth/",
+    "paymentGateWay": "https://aarthiscan.com/FieldPlus/razorPay/",
+    "fileServer": "https://aarthiscan.com/FieldPlus/generalAuth/",
+    "getQuery": "https://aarthiscan.com/"
+  },
+  "testingConfig": {
+    "serverUrl": "https://artest.betalearnings.com/FieldPlus/hcApp/",
+    "authUrl": "https://artest.betalearnings.com/FieldPlus/auth/",
+    "paymentGateWay": "https://artest.betalearnings.com/FieldPlus/razorPay/",
+    "fileServer": "https://artest.betalearnings.com/FieldPlus/generalAuth/",
+    "getQuery": "https://artest.betalearnings.com/"
+  }
 }

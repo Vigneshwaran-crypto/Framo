@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { useAppStore } from './Store';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
+import { useAppStore } from './Store.js';
 import screens from './screens.json';
+import useService from './useService.js';
 
 const components = {
   View: View,
@@ -9,11 +17,13 @@ const components = {
   TextInput: TextInput,
   TouchableOpacity: TouchableOpacity,
   Image: Image,
+  ScrollView: ScrollView,
 };
 
 const RenderNode = ({ node, formData, setFormData }) => {
   const Comp = components[node.type];
-  const { curScreen, setState } = useAppStore();
+  const { curScreen, setState, screenData, setField } = useAppStore();
+  const service = useService();
 
   if (!Comp) {
     console.warn(`Unknown component type: ${node.type}`);
@@ -23,25 +33,17 @@ const RenderNode = ({ node, formData, setFormData }) => {
   let finalProps = { ...node.props };
 
   if (node.type === 'TextInput') {
-    const field = node.props.placeholder.toLowerCase();
     finalProps = {
       ...finalProps,
-      value: formData[field] || '',
-      onChangeText: text => setFormData(prev => ({ ...prev, [field]: text })),
+      value: screenData[curScreen]?.[node.field] || '',
+      onChangeText: text => setField(curScreen, node.field, text),
       placeholderTextColor: '#999',
     };
   }
 
   if (node.type === 'TouchableOpacity') {
     finalProps.onPress = () => {
-      if (node.action === 'nav') {
-        setState('curScreen', node.toScreen);
-      }
-
-      //   console.log('Login attempt', formData);
-      //   alert(
-      //     `Email: ${formData.email || ''}\nPassword: ${formData.password || ''}`,
-      //   );
+      service[node.action]?.();
     };
   }
 
@@ -71,20 +73,8 @@ const RenderNode = ({ node, formData, setFormData }) => {
 };
 
 const Renderer = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const { curScreen } = useAppStore();
-
-  return (
-    <RenderNode
-      node={screens[curScreen]}
-      formData={formData}
-      setFormData={setFormData}
-    />
-  );
+  const { curScreen, screenData } = useAppStore();
+  return <RenderNode node={screens[curScreen]} />;
 };
 
 export default Renderer;
