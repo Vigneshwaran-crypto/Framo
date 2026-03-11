@@ -1,0 +1,142 @@
+{
+  "Login": {
+    "type": "View",
+    "style": {
+      "flex": 1,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "padding": 20,
+      "backgroundColor": "white",
+      "borderWidth": 1,
+      "borderColor": "red"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "children": "Login"
+        },
+        "style": {
+          "fontSize": 24,
+          "marginBottom": 20,
+          "fontWeight": "bold"
+        }
+      },
+      {
+        "type": "TextInput",
+        "field": "email",
+        "props": {
+          "placeholder": "Email"
+        },
+        "style": {
+          "borderWidth": 1,
+          "borderColor": "#ccc",
+          "padding": 12,
+          "marginBottom": 16,
+          "width": "85%",
+          "borderRadius": 8
+        }
+      },
+      {
+        "type": "TextInput",
+        "field": "Password",
+        "props": {
+          "placeholder": "Password",
+          "secureTextEntry": true
+        },
+        "style": {
+          "borderWidth": 1,
+          "borderColor": "#ccc",
+          "padding": 12,
+          "marginBottom": 24,
+          "width": "85%",
+          "borderRadius": 8
+        }
+      },
+      {
+        "type": "TouchableOpacity",
+        "action": "nav",
+        "toScreen": "Settings",
+        "props": {
+          "title": "Sign In"
+        },
+        "style": {
+          "backgroundColor": "#0066ff",
+          "paddingVertical": 14,
+          "borderRadius": 8,
+          "width": "85%",
+          "alignItems": "center"
+        }
+      }
+    ]
+  },
+  "Settings": {
+    "type": "View",
+    "style": {
+      "flex": 1,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "padding": 20,
+      "backgroundColor": "white",
+      "borderWidth": 1,
+      "borderColor": "green"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "children": "Settings"
+        },
+        "style": {
+          "fontSize": 24,
+          "marginBottom": 20,
+          "fontWeight": "bold"
+        }
+      },
+      {
+        "type": "TextInput",
+        "field": "name",
+        "props": {
+          "placeholder": "Name"
+        },
+        "style": {
+          "borderWidth": 1,
+          "borderColor": "#ccc",
+          "padding": 12,
+          "marginBottom": 16,
+          "width": "85%",
+          "borderRadius": 8
+        }
+      },
+      {
+        "type": "TextInput",
+        "field": "age",
+        "props": {
+          "placeholder": "Age",
+          "secureTextEntry": true
+        },
+        "style": {
+          "borderWidth": 1,
+          "borderColor": "#ccc",
+          "padding": 12,
+          "marginBottom": 24,
+          "width": "85%",
+          "borderRadius": 8
+        }
+      },
+      {
+        "type": "TouchableOpacity",
+        "props": {
+          "title": "Settings Screen"
+        },
+        "style": {
+          "backgroundColor": "#0066ff",
+          "paddingVertical": 14,
+          "borderRadius": 8,
+          "width": "85%",
+          "alignItems": "center"
+        }
+      }
+    ]
+  }
+}
