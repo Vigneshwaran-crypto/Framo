@@ -1,14 +1,10 @@
 import { create } from 'zustand';
 
 export const useAppStore = create((set, get) => ({
-  screenData: {
-    Login: {
-      email: '',
-      password: '',
-    },
-  },
+  screenData: {},
   curScreen: 'Login',
   stack: ['Login'],
+  loading: false,
 
   setField: (sId, field, value) =>
     set(state => ({

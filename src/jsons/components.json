@@ -1,0 +1,30 @@
+{
+  "userItem": {
+    "type": "View",
+    "style": {
+      "borderWidth": 1,
+      "borderColor": "red",
+      "flexDirection": "row",
+      "gap": 10,
+      "marginTop": 10,
+      "padding": 10,
+      "borderRadius": 10
+    },
+    "children": [
+      {
+        "type": "Text",
+        "styleRef": "defText",
+        "props": {
+          "children": "name"
+        }
+      },
+      {
+        "type": "Text",
+        "styleRef": "defText",
+        "props": {
+          "children": "phone"
+        }
+      }
+    ]
+  }
+}

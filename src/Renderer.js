@@ -6,21 +6,39 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  SafeAreaView,
+  StatusBar,
+  KeyboardAvoidingView,
+  Pressable,
+  Switch,
+  ActivityIndicator,
+  FlatList,
+  Button,
 } from 'react-native';
 import { useAppStore } from './Store.js';
-import screens from './screens.json';
+import blueprint from './jsons/screens.json';
+import styles from './jsons/styles.json';
+import custComps from './jsons/components.json';
 import useService from './useService.js';
 
 const components = {
   View: View,
+  SafeAreaView: SafeAreaView,
+  ScrollView: ScrollView,
+  KeyboardAvoidingView: KeyboardAvoidingView,
   Text: Text,
   TextInput: TextInput,
   TouchableOpacity: TouchableOpacity,
+  Pressable: Pressable,
+  Button: Button,
   Image: Image,
-  ScrollView: ScrollView,
+  ActivityIndicator: ActivityIndicator,
+  Switch: Switch,
+  FlatList: FlatList,
+  StatusBar: StatusBar,
 };
 
-const RenderNode = ({ node, formData, setFormData }) => {
+const RenderNode = ({ node }) => {
   const Comp = components[node.type];
   const { curScreen, setState, screenData, setField } = useAppStore();
   const service = useService();
@@ -47,34 +65,34 @@ const RenderNode = ({ node, formData, setFormData }) => {
     };
   }
 
-  const children = node.children?.map((child, index) => (
-    <RenderNode
-      key={index}
-      node={child}
-      formData={formData}
-      setFormData={setFormData}
-    />
-  ));
-
-  let content = children;
-  if (node.type === 'TouchableOpacity' && node.props.title && !node.children) {
-    content = (
-      <Text style={{ color: 'white', fontSize: 16, fontWeight: '600' }}>
-        {node.props.title}
-      </Text>
-    );
+  if (node.type === 'FlatList') {
+    finalProps = {
+      ...finalProps,
+      renderItem: ({ item }) => {
+        const dataNode = JSON.stringify(custComps[node.itemTemplate])
+          .replace('name', item.name)
+          .replace('phone', item.phone);
+        return <RenderNode node={JSON.parse(dataNode)} />;
+      },
+    };
   }
 
+  const children =
+    node.props?.children ||
+    node.children?.map((child, index) => (
+      <RenderNode key={index} node={child} />
+    ));
+
   return (
-    <Comp {...finalProps} style={node.style}>
-      {content}
+    <Comp {...finalProps} style={[node.style, styles[node.styleRef]]}>
+      {children}
     </Comp>
   );
 };
 
 const Renderer = () => {
-  const { curScreen, screenData } = useAppStore();
-  return <RenderNode node={screens[curScreen]} />;
+  const { curScreen, loading } = useAppStore();
+  return <RenderNode node={blueprint[curScreen]} />;
 };
 
 export default Renderer;
